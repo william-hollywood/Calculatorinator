@@ -4,12 +4,12 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 
-import { HomeScreen } from './pages/HomePage';
-import { ContinousScreen } from './pages/ContinuousPage';
-import { GrapherScreen } from './pages/GrapherPage';
-import { GraphScreen } from './pages/GraphPage';
-import { UnitScreen } from './pages/UnitPage';
-import { SettingsScreen } from './pages/SettingsPage';
+import HomeScreen from './pages/HomePage';
+import ContinousScreen from './pages/ContinuousPage';
+import GrapherScreen from './pages/GrapherPage';
+import GraphScreen from './pages/GraphPage';
+import UnitScreen from './pages/UnitPage';
+import SettingsScreen from './pages/SettingsPage';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -22,12 +22,12 @@ export default function App() {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Continuous" component={ContinousScreen} />
-            <Stack.Screen name="Grapher" component={GrapherScreen} />
-            <Stack.Screen name="Graph" component={GraphScreen} />
-            <Stack.Screen name="Unit" component={UnitScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen key="Home" name="Home" component={HomeScreen} />
+            <Stack.Screen key="Continuous" name="Continuous" component={ContinousScreen} />
+            <Stack.Screen key="Grapher" name="Grapher" component={GrapherScreen} />
+            <Stack.Screen key="Graph" name="Graph" component={GraphScreen} />
+            <Stack.Screen key="Unit" name="Unit" component={UnitScreen} />
+            <Stack.Screen key="Settings" name="Settings" component={SettingsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
