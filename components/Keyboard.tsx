@@ -3,36 +3,43 @@ import { View, StyleSheet } from "react-native";
 import React from "react";
 import { KeyboardButton } from "./KeyboardButton";
 
-export class Keyboard extends Component{
-    render(){
+export function Keyboard(page:any, state: string){
         var buttons: any[] = [];
-        buttons.push(KeyboardButton("lbracket"));
-        buttons.push(KeyboardButton("rbracket"));
-        buttons.push(KeyboardButton("percent"));
-        buttons.push(KeyboardButton("clear"));
-        buttons.push(KeyboardButton("dot"));
-        buttons.push(KeyboardButton("0"));
-        buttons.push(KeyboardButton("1"));
-        buttons.push(KeyboardButton("2"));
-        buttons.push(KeyboardButton("3"));
-        buttons.push(KeyboardButton("4"));
-        buttons.push(KeyboardButton("5"));
-        buttons.push(KeyboardButton("6"));
-        buttons.push(KeyboardButton("7"));
-        buttons.push(KeyboardButton("8"));
-        buttons.push(KeyboardButton("9"));
-        buttons.push(KeyboardButton("divide"));
-        buttons.push(KeyboardButton("multiply"));
-        buttons.push(KeyboardButton("plus"));
-        buttons.push(KeyboardButton("minus"));
-        buttons.push(KeyboardButton("equals"));
+        buttons.push(KeyboardButton("(", page));
+        buttons.push(KeyboardButton(")", page));
+        buttons.push(KeyboardButton("del", page));
+        buttons.push(KeyboardButton("clear", page));
+        buttons.push(KeyboardButton(".", page));
+        buttons.push(KeyboardButton("0", page));
+        buttons.push(KeyboardButton("1", page));
+        buttons.push(KeyboardButton("2", page));
+        buttons.push(KeyboardButton("3", page));
+        buttons.push(KeyboardButton("4", page));
+        buttons.push(KeyboardButton("5", page));
+        buttons.push(KeyboardButton("6", page));
+        buttons.push(KeyboardButton("7", page));
+        buttons.push(KeyboardButton("8", page));
+        buttons.push(KeyboardButton("9", page));
+        buttons.push(KeyboardButton("/", page));
+        buttons.push(KeyboardButton("*", page));
+        buttons.push(KeyboardButton("+", page));
+        buttons.push(KeyboardButton("-", page));
+        switch (state){
+            case "c":
+                buttons.push(KeyboardButton("ANS", page));
+                break;
+            case "g":
+                buttons.push(KeyboardButton("x", page));
+                break;
+            case "u":
+                break;
+        }
         
         return (
             <View style={kbstyles.board}>
                 {buttons}
             </View>
         );
-    }
 }
 
 export const kbstyles = StyleSheet.create({

@@ -1,9 +1,10 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import React from "react";
+import ContinousScreen from "../pages/ContinuousPage";
 
 // place holder to do stuff
-function doFunc(func:any){
-    console.log(func);
+function doFunc(func:any, page: any){
+    page.doFunc(func);
 }
 
 var widSep = 2.5; // 4 
@@ -21,22 +22,22 @@ function posFromIndex(index: any){
     return [index, row];
 }
 
-export function KeyboardButton(func:any){
+export function KeyboardButton(func:any, page: any){
     var pos = [0,0];
     switch (func){
-        case "lbracket":
+        case "(":
             pos = posFromIndex(0);
             break;
-        case "rbracket":
+        case ")":
             pos = posFromIndex(1);
             break;
-        case "percent":
+        case "del":
             pos = posFromIndex(2);
             break;
         case "clear":
             pos = posFromIndex(3);
             break;
-        case "dot":
+        case ".":
             pos = posFromIndex(17);
             break;
         case "0":
@@ -69,29 +70,31 @@ export function KeyboardButton(func:any){
         case "9":
             pos = posFromIndex(6);
             break;
-        case "divide":
+        case "/":
             pos = posFromIndex(7);
             break;
-        case "multiply":
+        case "*":
             pos = posFromIndex(11);
             break;
-        case "plus":
+        case "+":
             pos = posFromIndex(19);
             break;
-        case "minus":
+        case "-":
             pos = posFromIndex(15);
             break;
-        case "equals":
+        case "ANS":
+            pos = posFromIndex(18);
+            break;
+        case "x":
             pos = posFromIndex(18);
             break;
     }
 
-    console.log(pos);
     var x = pos[0]*buttonWid + (pos[0])*widSep + widSep/2;
     var y = pos[1]*buttonHei + (pos[1])*heiSep + heiSep/2;
 
     return (
-        <TouchableOpacity style={[styles.button, {left: x.toString()+"%", top: (y).toString()+"vh"}]} onPress={() => doFunc(func)}>
+        <TouchableOpacity style={[styles.button, {left: x.toString()+"%", top: (y).toString()+"vh"}]} onPress={() => doFunc(func, page)}>
             <View>
                 <Text>{func}</Text>
             </View>
@@ -105,5 +108,8 @@ export const styles = StyleSheet.create({
         backgroundColor: "#222222",
         width: buttonWid.toString() + "%",
         height: buttonHei.toString() + "vh",
+        alignContent: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
     }
 });

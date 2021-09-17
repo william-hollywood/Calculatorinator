@@ -2,38 +2,15 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import ContinousScreen from "../pages/ContinuousPage";
 
-let math = require('mathjs');
-let PRECISION = 3; // formatting precision
-let scope = {};
-
-function evalContent(content: string, num: any) {
-    var prevAns = "0";
-    if (num != 0)
-        prevAns = ContinousScreen.answers[num - 1];
-    content = content.replaceAll("ANS", prevAns)
-    try {
-        let result = math.format(math.evaluate(content, scope), PRECISION);
-        if (result == 'undefined')
-            result = 0;
-        ContinousScreen.answers[num] = result;
-        return result;
-    }
-    catch (error) {
-        ContinousScreen.answers[num] = "0";
-        return 'invalid';
-    }
-}
-
 function renderContent(content: any, num: any) {
-    let answer = evalContent(content, num);
     return (
         <View style={{ flexDirection: "row", width: '100%' }}>
+            <View style={styles.ansBox}><Text>y=</Text></View>
             <View style={styles.eqnBox}><Text>{content}</Text></View>
-            <View style={styles.ansBox}><Text>{answer}</Text></View>
         </View>);
 }
 
-export function ContinuousCell(content: any, num: any, selected: any, page: any) {
+export function GrapherCell(content: any, num: any, selected: any, page: any) {
     console.log(content);
     if (selected == num)
         return (
