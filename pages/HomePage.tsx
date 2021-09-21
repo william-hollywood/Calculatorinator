@@ -8,11 +8,11 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <View>
-                <Header name='Home' />
+                <Header name='Calculatorinator' />
                 <View style={styles.content}>
                     <HomePageButton name={"Continuous"} page={'Continuous'}></HomePageButton>
                     <HomePageButton name={"Grapher"} page={'Grapher'}></HomePageButton>
-                    <HomePageButton name={"Unit Conversion"} page={'Unit'}></HomePageButton>
+                    <HomePageButton name={"Unit Conversion"} page={'Unit Conversion'}></HomePageButton>
                     <HomePageButton name={"Settings"} page={'Settings'}></HomePageButton>
                 </View>
             </View>

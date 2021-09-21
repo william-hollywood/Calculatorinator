@@ -31,7 +31,6 @@ function sketch(p5: any) {
     var lineTick = 1;
     p5.setup = () => p5.createCanvas(size, size, p5.WEBGL);
 
-    
     p5.draw = () => {
         p5.background(250);
         p5.line(0, -size/2, 0, size/2);

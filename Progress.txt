@@ -1,0 +1,19 @@
+6 pages
+
+View
+TouchableOpacity
+Text
+StyleSheet
+SafeAreaProvider
+
+createNativeStackNavigator
+NavigationContainer
+useNavigation
+Component
+ReactP5Wrapper
+
+Button
+TextInput
+RNPickerSelect
+mathjs
+KeyboardAvoidingView

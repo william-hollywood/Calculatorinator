@@ -1,16 +1,17 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import React from "react";
 import ContinousScreen from "../pages/ContinuousPage";
+import { styles } from "../assets/Styles";
 
 // place holder to do stuff
 function doFunc(func:any, page: any){
     page.doFunc(func);
 }
 
-var widSep = 2.5; // 4 
-var heiSep = 2; // 5 
-var buttonWid = 22.5; //  4
-var buttonHei = 8; // 5
+export var widSep = 2.5; // 4 
+export var heiSep = 2; // 5 
+export var buttonWid = 22.5; //  4
+export var buttonHei = 8; // 5
 
 function posFromIndex(index: any){
     var numInRow = 4;
@@ -94,22 +95,10 @@ export function KeyboardButton(func:any, page: any){
     var y = pos[1]*buttonHei + (pos[1])*heiSep + heiSep/2;
 
     return (
-        <TouchableOpacity style={[styles.button, {left: x.toString()+"%", top: (y).toString()+"vh"}]} onPress={() => doFunc(func, page)}>
+        <TouchableOpacity style={[styles.keyboardButton, {left: x.toString()+"%", top: (y).toString()+"vh"}]} onPress={() => doFunc(func, page)}>
             <View>
                 <Text>{func}</Text>
             </View>
         </TouchableOpacity>
     );
 }
-
-export const styles = StyleSheet.create({
-    button: {
-        position: 'absolute',
-        backgroundColor: "#222222",
-        width: buttonWid.toString() + "%",
-        height: buttonHei.toString() + "vh",
-        alignContent: 'center',
-        justifyContent: 'center',
-        textAlign: 'center'
-    }
-});

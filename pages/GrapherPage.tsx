@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Header } from '../components/Header';
 import { HomePageButton } from '../components/HomePageButton';
 import { styles } from '../assets/Styles';
@@ -19,7 +19,6 @@ export default class GrapherScreen extends Component {
             GrapherScreen.selected = num;
             GrapherScreen.keyboard = true;
         }
-        console.log(GrapherScreen.keyboard)
         this.forceUpdate();
     }
 		
@@ -33,7 +32,6 @@ export default class GrapherScreen extends Component {
         var sel = GrapherScreen.cells[GrapherScreen.selected]
         switch (func){
             case "del":
-                console.log(sel.substring(sel.length-5));
                 if (sel.substring(sel.length-5) == '(ANS)'){
                     sel = sel.substring(0, sel.length-5)
                 } else {
@@ -74,10 +72,12 @@ export default class GrapherScreen extends Component {
                     <View style={styles.content}>
                         <Header name='Grapher Screen' />
                         {store}
+                        <ImageBackground source={require('../assets/images/plusSign.png')} resizeMode="cover" style={styles.imgBackground}>
                         <TouchableOpacity
                             style={styles.addCellButt}
                             onPress={this.addCell}>
                         </TouchableOpacity>
+                        </ImageBackground>
                         <HomePageButton name={"Graph"} page={'Graph'}></HomePageButton>
                     </View>
                     

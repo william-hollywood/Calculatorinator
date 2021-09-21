@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, View, StyleSheet, ImageBackground } from "react-native";
+import SettingsScreen from "../pages/SettingsPage";
 
 export const menuHeight = 60;
 const menuBackSize = 40;
@@ -9,10 +10,9 @@ function backButton() {
   const navigation = useNavigation();
   if (navigation.canGoBack())
     return (
-      <TouchableOpacity
-        style={styles.backButt}
-        onPress={navigation.goBack}
-      ></TouchableOpacity>
+      <ImageBackground source={require('../assets/images/back.png')} resizeMode="cover" style={styles.imgBackground}>
+        <TouchableOpacity style={styles.backButt} onPress={navigation.goBack}></TouchableOpacity>
+      </ImageBackground>
     );
   return;
 }
@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     width: '100%',
-    height: menuHeight + 6
+    height: menuHeight + 6,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: "#FFFFFF",
   },
   pageTitle: {
     position: 'absolute',
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     right: 100,
     top: 0,
     height: menuHeight,
-    marginTop: menuHeight / 3,
+    paddingTop: menuHeight / 3,
     alignContent: 'center',
     justifyContent: 'center',
     textAlign: 'center',
@@ -52,6 +55,11 @@ const styles = StyleSheet.create({
     width: menuBackSize,
     height: menuBackSize,
     margin: (menuHeight - menuBackSize) / 2,
-    backgroundColor: '#999999',
-  }
+  },
+  imgBackground: {
+    margin: (menuHeight - menuBackSize) / 2 + 5,
+    width: menuBackSize - 5,
+    height: menuBackSize - 5,
+    flex: 1 
+},
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { styles } from "../assets/Styles";
 
 let math = require('mathjs');
 let PRECISION = 3; // formatting precision
@@ -14,7 +15,7 @@ function evalContent(content: string, num: any) {
     try {
         let result = math.format(math.evaluate(content, scope), PRECISION);
         if (result == 'undefined')
-            result = 0;
+            result = '0';
         answers[num] = result;
         return result;
     }
@@ -34,47 +35,14 @@ function renderContent(content: any, num: any) {
 }
 
 export function ContinuousCell(content: any, num: any, selected: any, page: any) {
-    console.log(content);
     if (selected == num)
         return (
-            <TouchableOpacity style={styles.cellSelected} onPress={() => { page.setSelected(num) }}>
+            <TouchableOpacity key={num} style={styles.cellSelected} onPress={() => { page.setSelected(num) }}>
                 {renderContent(content, num)}
             </TouchableOpacity>);
     else
         return (
-            <TouchableOpacity style={styles.cell} onPress={() => { page.setSelected(num) }}>
+            <TouchableOpacity key={num} style={styles.cell} onPress={() => { page.setSelected(num) }}>
                 {renderContent(content, num)}
             </TouchableOpacity>);
 }
-
-const styles = StyleSheet.create({
-    cell: {
-        marginTop: 5,
-        marginBottom: 5,
-        height: 50,
-        width: '100%',
-        flexDirection: 'row'
-    },
-    eqnBox: {
-        width: '85%',
-        height: 50,
-        borderWidth: 3,
-        overflow: 'hidden',
-        backgroundColor: "#dddddd",
-    },
-    ansBox: {
-        width: '15%',
-        height: 50,
-        borderWidth: 3,
-        overflow: 'hidden',
-        backgroundColor: "#dddddd",
-    },
-    cellSelected: {
-        marginTop: 5,
-        marginBottom: 5,
-        height: 50,
-        width: '100%',
-        borderLeftColor: "#FF0000",
-        borderLeftWidth: 6,
-    }
-});

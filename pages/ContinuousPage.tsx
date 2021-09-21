@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
 import { Header } from '../components/Header';
 import { styles } from '../assets/Styles';
 import { ContinuousCell } from '../components/ContinuousCell';
-import { Keyboard, kbstyles } from '../components/Keyboard';
+import { Keyboard } from '../components/Keyboard';
 
 var keyboard = false;
 var cells = [""];
@@ -17,7 +17,6 @@ export default class ContinousScreen extends Component {
             selected = num;
             keyboard = true;
         }
-        console.log(keyboard)
         this.forceUpdate();
     }
 		
@@ -31,7 +30,6 @@ export default class ContinousScreen extends Component {
         var sel = cells[selected]
         switch (func){
             case "del":
-                console.log(sel.substring(sel.length-5));
                 if (sel.substring(sel.length-5) == '(ANS)'){
                     sel = sel.substring(0, sel.length-5)
                 } else {
@@ -71,10 +69,12 @@ export default class ContinousScreen extends Component {
                     <View style={styles.content}>
                         <Header name='Continuous Screen' />
                         {store}
-                        <TouchableOpacity
-                            style={styles.addCellButt}
-                            onPress={this.addCell}>
-                        </TouchableOpacity>
+                        <ImageBackground source={require('../assets/images/plusSign.png')} resizeMode="cover" style={styles.imgBackground}>
+                            <TouchableOpacity
+                                style={styles.addCellButt}
+                                onPress={this.addCell}>
+                            </TouchableOpacity>
+                        </ImageBackground>
                     </View>
                     
                 </View>

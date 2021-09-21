@@ -1,7 +1,7 @@
-import { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, } from "react-native";
 import React from "react";
 import { KeyboardButton } from "./KeyboardButton";
+import { styles } from "../assets/Styles";
 
 export function Keyboard(page:any, state: string){
         var buttons: any[] = [];
@@ -36,20 +36,8 @@ export function Keyboard(page:any, state: string){
         }
         
         return (
-            <View style={kbstyles.board}>
+            <View style={styles.keyboard}>
                 {buttons}
             </View>
         );
 }
-
-export const kbstyles = StyleSheet.create({
-    board: {
-        position: 'absolute',
-        left:0,
-        top: '50vh',
-        height: '50vh',
-        width: '100%',
-        borderWidth: 2,
-        backgroundColor: '#888888'
-    }
-});
