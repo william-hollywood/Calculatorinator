@@ -44,7 +44,7 @@ export function Keyboard(page:any, state: string){
 
 export const kbstyles = StyleSheet.create({
     board: {
-        position: 'fixed',
+        position: 'absolute',
         left:0,
         top: '50vh',
         height: '50vh',

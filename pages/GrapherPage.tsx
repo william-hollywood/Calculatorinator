@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Header } from '../components/Header';
 import { HomePageButton } from '../components/HomePageButton';
 import { styles } from '../assets/Styles';
 import { Keyboard } from '../components/Keyboard';
 import { GrapherCell } from '../components/GrapherCell';
+import GraphScreen from './GraphPage';
 
 export default class GrapherScreen extends Component {
     static keyboard = false;
@@ -66,11 +67,12 @@ export default class GrapherScreen extends Component {
             board.push(<View style={{marginTop:"50vh"}}></View>);
             board.push(Keyboard(this, "g"));
         }
+        GraphScreen.first = true;
         return (
             <View>
                 <View>
                     <View style={styles.content}>
-                        <Header name='Continuous Screen' />
+                        <Header name='Grapher Screen' />
                         {store}
                         <TouchableOpacity
                             style={styles.addCellButt}

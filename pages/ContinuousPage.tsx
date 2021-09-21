@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Header } from '../components/Header';
 import { styles } from '../assets/Styles';
 import { ContinuousCell } from '../components/ContinuousCell';
-import { useNavigation } from '@react-navigation/native';
 import { Keyboard, kbstyles } from '../components/Keyboard';
 
-
+var keyboard = false;
+var cells = [""];
+var selected = 0;
 
 export default class ContinousScreen extends Component {
-    static keyboard = false;
-    static cells = [""];
-    static answers = [""];
-    static selected = 0;
-
     setSelected = (num: any) => {
-        if (ContinousScreen.selected == num){
-            ContinousScreen.keyboard = !ContinousScreen.keyboard;
+        if (selected == num){
+            keyboard = !keyboard;
         } else {
-            ContinousScreen.selected = num;
-            ContinousScreen.keyboard = true;
+            selected = num;
+            keyboard = true;
         }
-        console.log(ContinousScreen.keyboard)
+        console.log(keyboard)
         this.forceUpdate();
     }
 		
     addCell = () => {
-        ContinousScreen.cells.push("");
-        ContinousScreen.selected = ContinousScreen.cells.length - 1;
+        cells.push("");
+        selected = cells.length - 1;
         this.forceUpdate();
     }
 
     doFunc = (func: any) => {
-        var sel = ContinousScreen.cells[ContinousScreen.selected]
+        var sel = cells[selected]
         switch (func){
             case "del":
                 console.log(sel.substring(sel.length-5));
@@ -52,20 +48,20 @@ export default class ContinousScreen extends Component {
                 sel += func;
                 break;
         }
-        ContinousScreen.cells[ContinousScreen.selected] = sel;
+        cells[selected] = sel;
         this.forceUpdate();
     }
 
     render() {
         var store: any[] = [];
-        for (var i = 0; i < ContinousScreen.cells.length; i++) {
+        for (var i = 0; i < cells.length; i++) {
             var s = false;
-            if (ContinousScreen.selected)
+            if (selected)
                 s = true;
-            store.push(ContinuousCell(ContinousScreen.cells[i],i,ContinousScreen.selected, this));
+            store.push(ContinuousCell(cells[i],i,selected, this));
         }
         var board: any[] = [];
-        if (ContinousScreen.keyboard){
+        if (keyboard){
             board.push(<View style={{marginTop:"50vh"}}></View>);
             board.push(Keyboard(this, "c"));
         }

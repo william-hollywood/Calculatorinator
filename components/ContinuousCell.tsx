@@ -1,25 +1,25 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import ContinousScreen from "../pages/ContinuousPage";
 
 let math = require('mathjs');
 let PRECISION = 3; // formatting precision
 let scope = {};
+var answers = [""];
 
 function evalContent(content: string, num: any) {
     var prevAns = "0";
     if (num != 0)
-        prevAns = ContinousScreen.answers[num - 1];
+        prevAns = answers[num - 1];
     content = content.replaceAll("ANS", prevAns)
     try {
         let result = math.format(math.evaluate(content, scope), PRECISION);
         if (result == 'undefined')
             result = 0;
-        ContinousScreen.answers[num] = result;
+        answers[num] = result;
         return result;
     }
     catch (error) {
-        ContinousScreen.answers[num] = "0";
+        answers[num] = "0";
         return 'invalid';
     }
 }

@@ -1,8 +1,7 @@
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import useCachedResources from './hooks/useCachedResources';
 
 import HomeScreen from './pages/HomePage';
 import ContinousScreen from './pages/ContinuousPage';
@@ -12,12 +11,8 @@ import UnitScreen from './pages/UnitPage';
 import SettingsScreen from './pages/SettingsPage';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
   const Stack = createNativeStackNavigator();
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
     return (
       <SafeAreaProvider>
         <NavigationContainer>
@@ -32,5 +27,5 @@ export default function App() {
         </NavigationContainer>
       </SafeAreaProvider>
     );
-  }
+  
 }

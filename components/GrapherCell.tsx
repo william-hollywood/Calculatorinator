@@ -1,6 +1,5 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import ContinousScreen from "../pages/ContinuousPage";
 
 function renderContent(content: any, num: any) {
     return (
