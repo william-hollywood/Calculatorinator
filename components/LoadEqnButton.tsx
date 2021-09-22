@@ -17,10 +17,12 @@ export default function LoadEqnButton({ eqnKey, eqnStr }: { eqnKey: any; eqnStr:
           .ref("Eqns/" + eqnKey)
           .get()
           .then(function (val) {
-            console.log(val.toJSON());
             var split = String(val.toJSON()).split(",");
             for (var i = 0; i < split.length; i++) {
               cells[i] = split[i];
+            }
+            for (var i = split.length; i < cells.length; i++) {
+              cells[i] = "";
             }
           })
           .then(() => {

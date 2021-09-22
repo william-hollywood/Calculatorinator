@@ -1,12 +1,80 @@
 import { StyleSheet } from "react-native";
-import { menuHeight } from "../components/Header";
 
 export var widSep = 2.5; // 4
 export var heiSep = 2; // 5
 export var buttonWid = 22.5; //  4
 export var buttonHei = 8; // 5
 
+export const menuHeight = 60;
+export const menuBackSize = 40;
+
 export const styles = StyleSheet.create({
+  headerWrapper: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    width: "100%",
+  },
+  buttonWrapper: {
+    width: "100%",
+    position: "absolute",
+  },
+  menu: {
+    borderWidth: 3,
+    borderColor: "black",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: menuHeight + 6,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: "#FFFFFF",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  pageTitle: {
+    top: 0,
+    margin: "0 auto",
+    height: menuHeight,
+    paddingTop: menuHeight / 3,
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  backButt: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    width: menuBackSize,
+    height: menuBackSize,
+    alignSelf: "flex-start",
+  },
+  shareButt: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    width: menuBackSize,
+    height: menuBackSize,
+    alignSelf: "flex-end",
+  },
+  backBackground: {
+    position: "absolute",
+    margin: (menuHeight - menuBackSize) / 2,
+    width: menuBackSize,
+    height: menuBackSize,
+    left: 0,
+    top: 0,
+  },
+  shareBackground: {
+    position: "absolute",
+    margin: (menuHeight - menuBackSize) / 2,
+    width: menuBackSize,
+    height: menuBackSize,
+    right: 0,
+    top: 0,
+    alignSelf: "flex-end",
+  },
   content: {
     zIndex: -1,
     paddingTop: menuHeight + 20,

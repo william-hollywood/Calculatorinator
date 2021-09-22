@@ -20,26 +20,27 @@ export default class FirebaseScreen extends Component {
     }
     eqnStr = eqnStr.substring(0, eqnStr.length - 1);
     var keyStr = FirebaseScreen.saveName.toString();
-
-    firebase
-      .database()
-      .ref("Eqns/" + keyStr)
-      .set(eqnStr);
-    firebase
-      .database()
-      .ref("Users/" + SettingsScreen.username)
-      .get()
-      .then((val) => {
-        var index: number = val.numChildren();
-        firebase
-          .database()
-          .ref("Users/" + SettingsScreen.username + "/" + index)
-          .set(keyStr)
-          .then(() => {
-            FirebaseScreen.saved = [];
-            this.forceUpdate();
-          });
-      });
+    if (keyStr+"." != ".") {
+      firebase
+        .database()
+        .ref("Eqns/" + keyStr)
+        .set(eqnStr);
+      firebase
+        .database()
+        .ref("Users/" + SettingsScreen.username)
+        .get()
+        .then((val) => {
+          var index: number = val.numChildren();
+          firebase
+            .database()
+            .ref("Users/" + SettingsScreen.username + "/" + index)
+            .set(keyStr)
+            .then(() => {
+              FirebaseScreen.saved = [];
+              this.forceUpdate();
+            });
+        });
+    }
   };
 
   saveCurrentButt = () => {
@@ -69,7 +70,6 @@ export default class FirebaseScreen extends Component {
         .get()
         .then((val) => {
           if (val.toJSON() != null) {
-            console.log(val.toJSON());
             val.forEach((childsnap) => {
               var key = childsnap.key;
               if (key != null) {
@@ -77,12 +77,11 @@ export default class FirebaseScreen extends Component {
                 var eqnKey = ref.toJSON();
                 if (eqnKey != null) {
                   var eqnStr: string = eqnKey.toString();
-                  if (eqnStr != null) console.log(eqnStr);
-                  saved.push(<LoadEqnButton eqnKey={eqnKey} eqnStr={eqnStr} />);
+                  if (eqnStr != null) 
+                    saved.push(<LoadEqnButton eqnKey={eqnKey} eqnStr={eqnStr} />);
                 }
               }
             });
-            console.log(saved);
             FirebaseScreen.saved = saved;
             this.forceUpdate();
           }
@@ -106,9 +105,12 @@ export default class FirebaseScreen extends Component {
               FirebaseScreen.saveName = str;
             }}
           >
-            {}
+            { }
           </TextInput>
-          {this.saveCurrentButt()} {this.loadSaved()} {FirebaseScreen.saved}
+          {this.saveCurrentButt()}
+          <Text> Load saved: </Text>
+          {this.loadSaved()}
+          {FirebaseScreen.saved}
         </View>
       </View>
     );
