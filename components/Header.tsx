@@ -10,8 +10,25 @@ function backButton() {
   const navigation = useNavigation();
   if (navigation.canGoBack())
     return (
-      <ImageBackground source={require('../assets/images/back.png')} resizeMode="cover" style={styles.imgBackground}>
+      <ImageBackground source={require("../assets/images/back.png")} resizeMode="cover" style={styles.backBackground}>
         <TouchableOpacity style={styles.backButt} onPress={navigation.goBack}></TouchableOpacity>
+      </ImageBackground>
+    );
+  return;
+}
+
+function shareButton(name: any) {
+  const navigation = useNavigation();
+  const firepage: any = "Firebase";
+  if (name == "Continuous Screen")
+    return (
+      <ImageBackground source={require("../assets/images/share.png")} resizeMode="cover" style={styles.shareBackground}>
+        <TouchableOpacity
+          style={styles.shareButt}
+          onPress={() => {
+            navigation.navigate(firepage);
+          }}
+        ></TouchableOpacity>
       </ImageBackground>
     );
   return;
@@ -19,47 +36,84 @@ function backButton() {
 
 export function Header({ name }: { name: string }) {
   return (
-    <View style={styles.menu}>
-      {backButton()}
-      <Text style={styles.pageTitle}>{name}</Text>
-    </View>);
+    <View
+      style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        width: "100%",
+      }}
+    >
+      <View style={styles.menu}>
+        <Text style={styles.pageTitle}> {name} </Text>
+      </View>
+      <View
+        style={{
+          width: "100%",
+          position: "absolute",
+        }}
+      >
+        {backButton()} {shareButton(name)}
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   menu: {
     borderWidth: 3,
-    borderColor: 'black',
-    position: 'absolute',
+    borderColor: "black",
+    position: "absolute",
     left: 0,
     top: 0,
-    width: '100%',
+    width: "100%",
     height: menuHeight + 6,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     backgroundColor: "#FFFFFF",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   pageTitle: {
-    position: 'absolute',
-    left: 100,
-    right: 100,
     top: 0,
+    margin: "0 auto",
     height: menuHeight,
     paddingTop: menuHeight / 3,
-    alignContent: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-  }, backButt: {
-    position: 'absolute',
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  backButt: {
+    position: "absolute",
     left: 0,
     top: 0,
     width: menuBackSize,
     height: menuBackSize,
-    margin: (menuHeight - menuBackSize) / 2,
+    alignSelf: "flex-start",
   },
-  imgBackground: {
-    margin: (menuHeight - menuBackSize) / 2 + 5,
-    width: menuBackSize - 5,
-    height: menuBackSize - 5,
-    flex: 1 
-},
+  shareButt: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    width: menuBackSize,
+    height: menuBackSize,
+    alignSelf: "flex-end",
+  },
+  backBackground: {
+    position: "absolute",
+    margin: (menuHeight - menuBackSize) / 2,
+    width: menuBackSize,
+    height: menuBackSize,
+    left: 0,
+    top: 0,
+  },
+  shareBackground: {
+    position: "absolute",
+    margin: (menuHeight - menuBackSize) / 2,
+    width: menuBackSize,
+    height: menuBackSize,
+    right: 0,
+    top: 0,
+    alignSelf: "flex-end",
+  },
 });
