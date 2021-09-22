@@ -20,7 +20,7 @@ export default class FirebaseScreen extends Component {
     }
     eqnStr = eqnStr.substring(0, eqnStr.length - 1);
     var keyStr = FirebaseScreen.saveName.toString();
-    if (keyStr+"." != ".") {
+    if (keyStr + "." != ".") {
       firebase
         .database()
         .ref("Eqns/" + keyStr)
@@ -77,8 +77,7 @@ export default class FirebaseScreen extends Component {
                 var eqnKey = ref.toJSON();
                 if (eqnKey != null) {
                   var eqnStr: string = eqnKey.toString();
-                  if (eqnStr != null) 
-                    saved.push(<LoadEqnButton eqnKey={eqnKey} eqnStr={eqnStr} />);
+                  if (eqnStr != null) saved.push(<LoadEqnButton eqnKey={eqnKey} eqnStr={eqnStr} />);
                 }
               }
             });
@@ -105,7 +104,7 @@ export default class FirebaseScreen extends Component {
               FirebaseScreen.saveName = str;
             }}
           >
-            { }
+            {}
           </TextInput>
           {this.saveCurrentButt()}
           <Text> Load saved: </Text>
