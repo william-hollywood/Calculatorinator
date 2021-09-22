@@ -5,12 +5,7 @@ import ContinousScreen from "../pages/ContinuousPage";
 
 function renderContent(content: any, num: any) {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        width: "100%",
-      }}
-    >
+    <View style={styles.cellWrapper}>
       <View style={styles.graphAnsBox}>
         <Text> y = </Text>
       </View>
@@ -22,28 +17,15 @@ function renderContent(content: any, num: any) {
 }
 
 export function GrapherCell(content: any, num: any, selected: any, page: any) {
-  if (selected == num)
-    return (
-      <TouchableOpacity
-        key={num}
-        style={styles.graphCellSelected}
-        onPress={() => {
-          page.setSelected(num);
-        }}
-      >
-        {renderContent(content, num)}
-      </TouchableOpacity>
-    );
-  else
-    return (
-      <TouchableOpacity
-        key={num}
-        style={styles.graphCell}
-        onPress={() => {
-          page.setSelected(num);
-        }}
-      >
-        {renderContent(content, num)}
-      </TouchableOpacity>
-    );
+  return (
+    <TouchableOpacity
+      key={num}
+      style={selected == num ? styles.graphCellSelected : styles.graphCell}
+      onPress={() => {
+        page.setSelected(num);
+      }}
+    >
+      {renderContent(content, num)}
+    </TouchableOpacity>
+  );
 }

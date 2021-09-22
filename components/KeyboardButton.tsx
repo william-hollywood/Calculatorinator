@@ -1,17 +1,12 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import React from "react";
 import ContinousScreen from "../pages/ContinuousPage";
-import { styles } from "../assets/Styles";
+import { buttonHei, buttonWid, heiSep, styles, widSep } from "../assets/Styles";
 
 // place holder to do stuff
 function doFunc(func: any, page: any) {
   page.doFunc(func);
 }
-
-export var widSep = 2.5; // 4
-export var heiSep = 2; // 5
-export var buttonWid = 22.5; //  4
-export var buttonHei = 8; // 5
 
 function posFromIndex(index: any) {
   var numInRow = 4;

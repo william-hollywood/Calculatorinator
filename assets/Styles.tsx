@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 import { menuHeight } from "../components/Header";
-import { buttonWid, buttonHei } from "../components/KeyboardButton";
+
+export var widSep = 2.5; // 4
+export var heiSep = 2; // 5
+export var buttonWid = 22.5; //  4
+export var buttonHei = 8; // 5
 
 export const styles = StyleSheet.create({
   content: {
@@ -55,6 +59,10 @@ export const styles = StyleSheet.create({
     borderLeftColor: "#FF0000",
     borderLeftWidth: 6,
   },
+  cellWrapper: {
+    flexDirection: "row",
+    width: "100%",
+  },
   graphCell: {
     marginTop: 5,
     marginBottom: 5,
@@ -93,6 +101,9 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     borderWidth: 3,
     borderRadius: 10,
+  },
+  keyboardPadding: {
+    marginTop: "50vh",
   },
   keyboard: {
     position: "absolute",

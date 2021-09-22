@@ -61,13 +61,7 @@ export default class GrapherScreen extends Component {
     }
     var board: any[] = [];
     if (GrapherScreen.keyboard) {
-      board.push(
-        <View
-          style={{
-            marginTop: "50vh",
-          }}
-        ></View>
-      );
+      board.push(<View style={styles.keyboardPadding}></View>);
       board.push(Keyboard(this, "g"));
     }
     GraphScreen.first = true;

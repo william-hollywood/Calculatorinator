@@ -25,12 +25,7 @@ function evalContent(content: string, num: any) {
 function renderContent(content: any, num: any) {
   let answer = evalContent(content, num);
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        width: "100%",
-      }}
-    >
+    <View style={styles.cellWrapper}>
       <View style={styles.eqnBox}>
         <Text> {content} </Text>
       </View>
@@ -42,28 +37,15 @@ function renderContent(content: any, num: any) {
 }
 
 export function ContinuousCell(content: any, num: any, selected: any, page: any) {
-  if (selected == num)
-    return (
-      <TouchableOpacity
-        key={num}
-        style={styles.cellSelected}
-        onPress={() => {
-          page.setSelected(num);
-        }}
-      >
-        {renderContent(content, num)}
-      </TouchableOpacity>
-    );
-  else
-    return (
-      <TouchableOpacity
-        key={num}
-        style={styles.cell}
-        onPress={() => {
-          page.setSelected(num);
-        }}
-      >
-        {renderContent(content, num)}
-      </TouchableOpacity>
-    );
+  return (
+    <TouchableOpacity
+      key={num}
+      style={selected == num ? styles.cellSelected : styles.cell}
+      onPress={() => {
+        page.setSelected(num);
+      }}
+    >
+      {renderContent(content, num)}
+    </TouchableOpacity>
+  );
 }

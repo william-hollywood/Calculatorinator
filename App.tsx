@@ -11,8 +11,8 @@ import SettingsScreen from "./pages/SettingsPage";
 import FirebaseScreen from "./pages/FirebasePage";
 import firebase from "firebase/app";
 import "firebase/database";
-import "dotenv/config";
 import { apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId, measurementId } from "@env";
+import { registerRootComponent } from "expo";
 
 const firebaseConfig = {
   apiKey: apiKey,
@@ -45,3 +45,5 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
+
+registerRootComponent(App);

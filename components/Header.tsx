@@ -36,23 +36,11 @@ function shareButton(name: any) {
 
 export function Header({ name }: { name: string }) {
   return (
-    <View
-      style={{
-        position: "absolute",
-        left: 0,
-        top: 0,
-        width: "100%",
-      }}
-    >
+    <View style={styles.headerWrapper}>
       <View style={styles.menu}>
         <Text style={styles.pageTitle}> {name} </Text>
       </View>
-      <View
-        style={{
-          width: "100%",
-          position: "absolute",
-        }}
-      >
+      <View style={styles.buttonWrapper}>
         {backButton()} {shareButton(name)}
       </View>
     </View>
@@ -60,6 +48,16 @@ export function Header({ name }: { name: string }) {
 }
 
 const styles = StyleSheet.create({
+  headerWrapper: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    width: "100%",
+  },
+  buttonWrapper: {
+    width: "100%",
+    position: "absolute",
+  },
   menu: {
     borderWidth: 3,
     borderColor: "black",

@@ -34,9 +34,12 @@ function testLogin(pass: any, page: any) {
 }
 
 export default class SettingsScreen extends Component {
-  static username = "test1"; //"";
-  static hash = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"; //"";
-  static auth = true; //false;
+  // static username = "test1"; //"";
+  // static hash = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"; //"";
+  // static auth = true; //false;
+  static username = "";
+  static hash = "";
+  static auth = false;
   status = "Enter Password";
   col = "#FFA500";
   render() {
@@ -58,7 +61,7 @@ export default class SettingsScreen extends Component {
             <Text> Password: </Text>
             <TextInput
               secureTextEntry={true}
-              defaultValue={SettingsScreen.hash}
+              defaultValue={""}
               style={[
                 styles.unitInput,
                 {

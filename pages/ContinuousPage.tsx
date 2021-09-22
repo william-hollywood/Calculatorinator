@@ -57,7 +57,7 @@ export default class ContinousScreen extends Component {
     }
     var board: any[] = [];
     if (keyboard) {
-      board.push(<View style={{ marginTop: "50vh" }}></View>);
+      board.push(<View style={styles.keyboardPadding}></View>);
       board.push(Keyboard(this, "c"));
     }
     return (
