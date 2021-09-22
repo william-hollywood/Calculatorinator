@@ -28,10 +28,13 @@ function sketch(p5: any) {
   var size = 400;
   var screenSize = 100;
   var scale = size / screenSize;
-  var tickSep = 20;
-  var tickLen = 5;
-  var lineTick = 1;
-  p5.setup = () => p5.createCanvas(size, size, p5.WEBGL);
+  var tickSep = 5;
+  var tickLen = 2;
+  var lineTick = 0.1;
+  p5.setup = () => {
+    p5.createCanvas(size, size, p5.WEBGL);
+    p5.noLoop();
+  }
 
   p5.draw = () => {
     p5.background(250);
@@ -49,7 +52,7 @@ function sketch(p5: any) {
       var last = 0;
       p5.push();
       p5.stroke(strokes[n][0], strokes[n][1], strokes[n][2]);
-      for (var i = -size / 2; i < size / 2; i += lineTick) {
+      for (var i = -size / 2*scale; i < size / 2*scale; i += lineTick) {
         let scope = {
           x: i,
         };
