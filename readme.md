@@ -14,6 +14,8 @@ You can download this project using:
 git clone https://gitlab.ecs.vuw.ac.nz/hollywwill/swen325-app.git
 ```
 
+You would normally need to manually create the `.env` file containing all environment variables. But for the sake of ease of assignment marking, this has been included in the project repo. (**But should not normally be included**)
+
 When in this directory in cmd or terminal install the required packages using:
 
 ```bash
