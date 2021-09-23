@@ -3,57 +3,9 @@ import { View, Text, TextInput, KeyboardAvoidingView, Button } from "react-nativ
 import { Header } from "../components/Header";
 import { styles } from "../assets/Styles";
 import { JSHash, CONSTANTS } from "react-native-hash";
-import firebase from "firebase/app";
-import "firebase/database";
+import { fbaseGet, fbaseSet } from "../components/Firebase";
 
-function registerLogin(page: any) {
-  firebase
-    .database()
-    .ref("Logins/" + SettingsScreen.username)
-    .get()
-    .then((val) => {
-      if (val.toJSON() == null) {
-        SettingsScreen.auth = true;
-        page.status = "User Registered";
-        page.col = "#00FF00";
-        firebase
-          .database()
-          .ref("Logins/" + SettingsScreen.username)
-          .set(SettingsScreen.hash);
-      } else {
-        page.status = "Invalid Registration";
-        page.col = "#FF0000";
-        SettingsScreen.auth = false;
-      }
-      page.forceUpdate();
-    });
-}
 
-function testLogin(pass: any, page: any) {
-  JSHash(pass, CONSTANTS.HashAlgorithms.sha256)
-    .then((hash) => {
-      SettingsScreen.hash = hash;
-      firebase
-        .database()
-        .ref("Logins/" + SettingsScreen.username)
-        .get()
-        .then(function (val) {
-          if (val.toJSON() != null) {
-            if (val.toJSON() == hash) {
-              SettingsScreen.auth = true;
-              page.status = "Valid Login";
-              page.col = "#00FF00";
-            } else {
-              page.status = "Invalid Login";
-              page.col = "#FF0000";
-              SettingsScreen.auth = false;
-            }
-            page.forceUpdate();
-          }
-        });
-    })
-    .catch((e) => {});
-}
 
 export default class SettingsScreen extends Component {
   // static username = "test"; //"";
@@ -65,6 +17,44 @@ export default class SettingsScreen extends Component {
   status = "Enter Password";
   col = "#FFA500";
 
+  registerLogin = (page: any) => {
+    fbaseGet("Logins/" + SettingsScreen.username).then((val) => {
+        if (val.toJSON() == null) {
+          SettingsScreen.auth = true;
+          page.status = "User Registered";
+          page.col = "#00FF00";
+          fbaseSet("Logins/" + SettingsScreen.username,SettingsScreen.hash);
+        } else {
+          page.status = "Invalid Registration";
+          page.col = "#FF0000";
+          SettingsScreen.auth = false;
+        }
+        page.forceUpdate();
+      });
+  }
+  
+  testLogin = (pass: any, page: any) => {
+    JSHash(pass, CONSTANTS.HashAlgorithms.sha256)
+      .then((hash) => {
+        SettingsScreen.hash = hash;
+        fbaseGet("Logins/" + SettingsScreen.username).then(function (val) {
+            if (val.toJSON() != null) {
+              if (val.toJSON() == hash) {
+                SettingsScreen.auth = true;
+                page.status = "Valid Login";
+                page.col = "#00FF00";
+              } else {
+                page.status = "Invalid Login";
+                page.col = "#FF0000";
+                SettingsScreen.auth = false;
+              }
+              page.forceUpdate();
+            }
+          });
+      })
+      .catch((e) => {});
+  }
+
   updateOnPassEntry(str: any) {
     this.col = "#FFA500";
     this.status = "Enter Password";
@@ -73,6 +63,8 @@ export default class SettingsScreen extends Component {
       SettingsScreen.hash = hash;
     });
   }
+
+  // Presenter functions
 
   render() {
     return (
@@ -96,11 +88,11 @@ export default class SettingsScreen extends Component {
               this.updateOnPassEntry(str);
             }}
             onSubmitEditing={(event: any) => {
-              testLogin(event.nativeEvent.text, this);
+              this.testLogin(event.nativeEvent.text, this);
             }}
           ></TextInput>
           <Text style={{ color: this.col }}>{this.status}</Text>
-          <Button title="Register New User" onPress={() => registerLogin(this)}></Button>
+          <Button title="Register New User" onPress={() => this.registerLogin(this)}></Button>
         </View>
       </View>
     );

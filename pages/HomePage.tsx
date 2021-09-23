@@ -5,6 +5,8 @@ import { HomePageButton } from "../components/HomePageButton";
 import { styles } from "../assets/Styles";
 
 export default class HomeScreen extends Component {
+  // Presenter functions
+  
   render() {
     return (
       <View>

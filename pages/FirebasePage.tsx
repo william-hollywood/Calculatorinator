@@ -3,47 +3,46 @@ import { View, Text, TextInput, Button } from "react-native";
 import { Header } from "../components/Header";
 import { styles } from "../assets/Styles";
 import SettingsScreen from "./SettingsPage";
-import firebase from "firebase/app";
-import "firebase/database";
-import { cells } from "./ContinuousPage";
 import LoadEqnButton from "../components/LoadEqnButton";
+import { fbaseGet, fbaseSet } from "../components/Firebase";
+import ContinuousPage from "./ContinuousPage";
 
 export default class FirebaseScreen extends Component {
+
+  //model functions and variables
+
   static saved: any[] = [];
   static lastUser = "";
   static saveName = "";
 
+  setSaveName = (str: any) => {FirebaseScreen.saveName = str;}
+
+  updateSaved = (val:any) => {FirebaseScreen.saved = val;};
+
+  //presentor functions
+
+  checkReset = ()  => {if (SettingsScreen.username != FirebaseScreen.lastUser) this.updateSaved([]);}
+
   saveEqn = () => {
     var eqnStr = "";
-    for (var i = 0; i < cells.length; i++) {
-      eqnStr += cells[i] + ",";
+    for (var i = 0; i < ContinuousPage.cells.length; i++) {
+      eqnStr += ContinuousPage.cells[i] + ",";
     }
     eqnStr = eqnStr.substring(0, eqnStr.length - 1);
     var keyStr = FirebaseScreen.saveName.toString();
     if (keyStr + "." != ".") {
-      firebase
-        .database()
-        .ref("Eqns/" + keyStr)
-        .set(eqnStr);
-      firebase
-        .database()
-        .ref("Users/" + SettingsScreen.username)
-        .get()
-        .then((val) => {
-          var index: number = val.numChildren();
-          firebase
-            .database()
-            .ref("Users/" + SettingsScreen.username + "/" + index)
-            .set(keyStr)
-            .then(() => {
-              FirebaseScreen.saved = [];
-              this.forceUpdate();
-            });
-        });
+      fbaseSet("Eqns/" + keyStr, eqnStr);
+      fbaseGet("Users/" + SettingsScreen.username).then((val) => {
+        var index: number = val.numChildren();
+        fbaseSet("Users/" + SettingsScreen.username + "/" + index, keyStr).then(() => {
+          this.updateSaved([]);
+          this.forceUpdate();
+        })
+      });
     }
   };
 
-  saveCurrentButt = () => {
+  saveCurrentButton = () => {
     if (!SettingsScreen.auth) {
       return <Text> Please authorize yourself in the settings </Text>;
     }
@@ -64,11 +63,7 @@ export default class FirebaseScreen extends Component {
     if (FirebaseScreen.saved.length == 0) {
       var saved: any[] = [];
       FirebaseScreen.lastUser = SettingsScreen.username;
-      firebase
-        .database()
-        .ref("Users/" + SettingsScreen.username + "/")
-        .get()
-        .then((val) => {
+      fbaseGet("Users/" + SettingsScreen.username + "/").then((val) => {
           if (val.toJSON() != null) {
             val.forEach((childsnap) => {
               var key = childsnap.key;
@@ -89,24 +84,14 @@ export default class FirebaseScreen extends Component {
   };
 
   render() {
-    if (SettingsScreen.username != FirebaseScreen.lastUser) {
-      FirebaseScreen.saved = [];
-    }
+    this.checkReset();
     return (
       <View>
         <Header name="Firebase Screen" />
         <View style={styles.content}>
           <Text> Save As: </Text>
-          <TextInput
-            defaultValue=""
-            style={styles.unitInput}
-            onChangeText={(str: any) => {
-              FirebaseScreen.saveName = str;
-            }}
-          >
-            {}
-          </TextInput>
-          {this.saveCurrentButt()}
+          <TextInput style={styles.unitInput} onChangeText={this.setSaveName}></TextInput>
+          {this.saveCurrentButton()}
           <Text> Load saved: </Text>
           {this.loadSaved()}
           {FirebaseScreen.saved}

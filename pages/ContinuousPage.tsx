@@ -5,29 +5,30 @@ import { styles } from "../assets/Styles";
 import { ContinuousCell } from "../components/ContinuousCell";
 import { Keyboard } from "../components/Keyboard";
 
-var keyboard = false;
-var selected = 0;
-export var cells = [""];
-
 export default class ContinousScreen extends Component {
+  // Model functions and variables
+
+  static cells = [""];
+  keyboard = false;
+  selected = 0;
+  
   setSelected = (num: any) => {
-    if (selected == num) {
-      keyboard = !keyboard;
+    if (this.selected == num) {
+      this.keyboard = !this.keyboard;
     } else {
-      selected = num;
-      keyboard = true;
+      this.selected = num;
+      this.keyboard = true;
     }
     this.forceUpdate();
   };
 
-  addCell = () => {
-    cells.push("");
-    selected = cells.length - 1;
-    this.forceUpdate();
+  addNewCell = () => {
+    ContinousScreen.cells.push("");
+    this.selected = ContinousScreen.cells.length - 1;
   };
 
   doFunc = (func: any) => {
-    var sel = cells[selected];
+    var sel = ContinousScreen.cells[this.selected];
     switch (func) {
       case "del":
         if (sel.substring(sel.length - 5) == "(ANS)") {
@@ -46,17 +47,24 @@ export default class ContinousScreen extends Component {
         sel += func;
         break;
     }
-    cells[selected] = sel;
+    ContinousScreen.cells[this.selected] = sel;
+    this.forceUpdate();
+  };
+
+  // Presenter functions
+
+  addCell = () => {
+    this.addNewCell();
     this.forceUpdate();
   };
 
   render() {
     var store: any[] = [];
-    for (var i = 0; i < cells.length; i++) {
-      store.push(ContinuousCell(cells[i], i, selected, this));
+    for (var i = 0; i < ContinousScreen.cells.length; i++) {
+      store.push(ContinuousCell(ContinousScreen.cells[i], i, this.selected, this));
     }
     var board: any[] = [];
-    if (keyboard) {
+    if (this.keyboard) {
       board.push(<View style={styles.keyboardPadding}></View>);
       board.push(Keyboard(this, "c"));
     }

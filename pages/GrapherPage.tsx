@@ -8,28 +8,29 @@ import { GrapherCell } from "../components/GrapherCell";
 import GraphScreen from "./GraphPage";
 
 export default class GrapherScreen extends Component {
-  static keyboard = false;
+  // Model functions and variables
+
   static cells = [""];
-  static selected = 0;
+  keyboard = false;
+  selected = 0;
 
   setSelected = (num: any) => {
-    if (GrapherScreen.selected == num) {
-      GrapherScreen.keyboard = !GrapherScreen.keyboard;
+    if (this.selected == num) {
+      this.keyboard = !this.keyboard;
     } else {
-      GrapherScreen.selected = num;
-      GrapherScreen.keyboard = true;
+      this.selected = num;
+      this.keyboard = true;
     }
     this.forceUpdate();
   };
 
-  addCell = () => {
+  addNewCell = () => {
     GrapherScreen.cells.push("");
-    GrapherScreen.selected = GrapherScreen.cells.length - 1;
-    this.forceUpdate();
+    this.selected = GrapherScreen.cells.length - 1;
   };
 
   doFunc = (func: any) => {
-    var sel = GrapherScreen.cells[GrapherScreen.selected];
+    var sel = GrapherScreen.cells[this.selected];
     switch (func) {
       case "del":
         if (sel.substring(sel.length - 5) == "(ANS)") {
@@ -48,7 +49,14 @@ export default class GrapherScreen extends Component {
         sel += func;
         break;
     }
-    GrapherScreen.cells[GrapherScreen.selected] = sel;
+    GrapherScreen.cells[this.selected] = sel;
+    this.forceUpdate();
+  };
+  
+  // Presenter functions
+
+  addCell = () => {
+    this.addNewCell();
     this.forceUpdate();
   };
 
@@ -56,15 +64,14 @@ export default class GrapherScreen extends Component {
     var store: any[] = [];
     for (var i = 0; i < GrapherScreen.cells.length; i++) {
       var s = false;
-      if (GrapherScreen.selected) s = true;
-      store.push(GrapherCell(GrapherScreen.cells[i], i, GrapherScreen.selected, this));
+      if (this.selected) s = true;
+      store.push(GrapherCell(GrapherScreen.cells[i], i, this.selected, this));
     }
     var board: any[] = [];
-    if (GrapherScreen.keyboard) {
+    if (this.keyboard) {
       board.push(<View style={styles.keyboardPadding}></View>);
       board.push(Keyboard(this, "g"));
     }
-    GraphScreen.first = true;
     return (
       <View>
         <View>
