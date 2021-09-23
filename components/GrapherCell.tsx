@@ -1,8 +1,15 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import { styles } from "../assets/Styles";
-import ContinousScreen from "../pages/ContinuousPage";
 
+// Presenter functions
+/**
+ * render the content in the form of 2 side by side boxes
+ * 
+ * @param content content to display in right box
+ * @param num cell number
+ * @returns JSX component
+ */
 function renderContent(content: any, num: any) {
   return (
     <View style={styles.cellWrapper}>
@@ -16,6 +23,14 @@ function renderContent(content: any, num: any) {
   );
 }
 
+/**
+ * construct a cell used for displaying grapher equations
+ * @param content content to put in the box
+ * @param num cell number
+ * @param selected selected cell number
+ * @param page page the cell is displayed on
+ * @returns Complete cell JSX component
+ */
 export function GrapherCell(content: any, num: any, selected: any, page: any) {
   return (
     <TouchableOpacity

@@ -3,11 +3,21 @@ import React from "react";
 import ContinousScreen from "../pages/ContinuousPage";
 import { buttonHei, buttonWid, heiSep, styles, widSep } from "../assets/Styles";
 
-// place holder to do stuff
+// Presenter functions
+/**
+ * wrapper function for interacting between view and model through the presenter
+ * @param func function to do
+ * @param page where to perform the function
+ */
 function doFunc(func: any, page: any) {
   page.doFunc(func);
 }
 
+/**
+ * method to simplify keyboard index positions (4 by X grid)
+ * @param index index of button 
+ * @returns 
+ */
 function posFromIndex(index: any) {
   var numInRow = 4;
   var row = 0;
@@ -18,6 +28,12 @@ function posFromIndex(index: any) {
   return [index, row];
 }
 
+/**
+ * return a keyboard button that performs a specific operation on a page
+ * @param func function to do
+ * @param page page to operate on
+ * @returns button component
+ */
 export function KeyboardButton(func: any, page: any) {
   var pos = [0, 0];
   switch (func) {

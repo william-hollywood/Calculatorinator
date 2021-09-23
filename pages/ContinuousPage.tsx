@@ -12,6 +12,10 @@ export default class ContinousScreen extends Component {
   keyboard = false;
   selected = 0;
   
+  /**
+   * set the selected cell on this page
+   * @param num cell to select
+   */
   setSelected = (num: any) => {
     if (this.selected == num) {
       this.keyboard = !this.keyboard;
@@ -22,11 +26,18 @@ export default class ContinousScreen extends Component {
     this.forceUpdate();
   };
 
+  /**
+   * push a new cell to the screen
+   */
   addNewCell = () => {
     ContinousScreen.cells.push("");
     this.selected = ContinousScreen.cells.length - 1;
   };
 
+  /**
+   * perform a function from the keyboard
+   * @param func function to do, (number, character, clear, delete)
+   */
   doFunc = (func: any) => {
     var sel = ContinousScreen.cells[this.selected];
     switch (func) {
@@ -53,16 +64,25 @@ export default class ContinousScreen extends Component {
 
   // Presenter functions
 
+  /**
+   * function called by the View to add a cell
+   */
   addCell = () => {
     this.addNewCell();
     this.forceUpdate();
   };
 
+  /**
+   * Presenter rendering function
+   * @returns rendered page to the View layer
+   */
   render() {
+    //render any cells
     var store: any[] = [];
     for (var i = 0; i < ContinousScreen.cells.length; i++) {
       store.push(ContinuousCell(ContinousScreen.cells[i], i, this.selected, this));
     }
+    //render the keyboard
     var board: any[] = [];
     if (this.keyboard) {
       board.push(<View style={styles.keyboardPadding}></View>);

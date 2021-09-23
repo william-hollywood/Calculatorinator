@@ -7,6 +7,7 @@ import RNPickerSelect from "react-native-picker-select";
 export default class UnitScreen extends Component {
   // Model functions and variables
 
+  //conversions
   dist = [
     { label: "Centimeter", value: 0.01 },
     { label: "Meter", value: 1 },
@@ -35,18 +36,29 @@ export default class UnitScreen extends Component {
   sel1 = 0;
   sel2 = 0;
 
+  /**
+   * update the type of conversion
+   * @param str d = dist, v = volume, w = weight
+   */
   updateType = (str: string) => {
     this.type = str;
     this.forceUpdate();
   };
 
+  /**
+   * change the displayed number when the text input changes
+   * @param str inputted number to convert
+   */
   updateConversion = (str: any) => {
     this.num = str * (this.sel1 / this.sel2);
     this.forceUpdate();
   };
 
   // Presenter functions
-
+  /**
+   * Presenter rendering function
+   * @returns rendered page to the View layer
+   */
   render() {
     var sel = this.type == "d" ? this.dist : this.type == "w" ? this.wei : this.vol;
     return (

@@ -4,7 +4,7 @@ import { Header } from "../components/Header";
 import { styles } from "../assets/Styles";
 import SettingsScreen from "./SettingsPage";
 import LoadEqnButton from "../components/LoadEqnButton";
-import { fbaseGet, fbaseSet } from "../components/Firebase";
+import { fbaseGet, fbaseSet } from "../firebase/Firebase";
 import ContinuousPage from "./ContinuousPage";
 
 export default class FirebaseScreen extends Component {
@@ -15,14 +15,29 @@ export default class FirebaseScreen extends Component {
   static lastUser = "";
   static saveName = "";
 
+  /**
+   * set the saved name of the equation to upload to firebase
+   * called by the presenter
+   * @param str 
+   */
   setSaveName = (str: any) => {FirebaseScreen.saveName = str;}
 
+  /**
+   * 
+   * @param val set the equations to display to the user
+   */
   updateSaved = (val:any) => {FirebaseScreen.saved = val;};
 
   //presentor functions
 
+  /**
+   * check if the user has changed, if so, reset the saved equations
+   */
   checkReset = ()  => {if (SettingsScreen.username != FirebaseScreen.lastUser) this.updateSaved([]);}
 
+  /**
+   * function called by view layer to save the current equation
+   */
   saveEqn = () => {
     var eqnStr = "";
     for (var i = 0; i < ContinuousPage.cells.length; i++) {
@@ -30,8 +45,11 @@ export default class FirebaseScreen extends Component {
     }
     eqnStr = eqnStr.substring(0, eqnStr.length - 1);
     var keyStr = FirebaseScreen.saveName.toString();
+    //make sure the key isnt blank
     if (keyStr + "." != ".") {
+      //set the eqn in firebase
       fbaseSet("Eqns/" + keyStr, eqnStr);
+      //add it to the users saved eqns with an increasing index
       fbaseGet("Users/" + SettingsScreen.username).then((val) => {
         var index: number = val.numChildren();
         fbaseSet("Users/" + SettingsScreen.username + "/" + index, keyStr).then(() => {
@@ -42,6 +60,10 @@ export default class FirebaseScreen extends Component {
     }
   };
 
+  /**
+   * button to save the current equation in firebase
+   * @returns a button
+   */
   saveCurrentButton = () => {
     if (!SettingsScreen.auth) {
       return <Text> Please authorize yourself in the settings </Text>;
@@ -56,6 +78,11 @@ export default class FirebaseScreen extends Component {
     );
   };
 
+  /**
+   * load the saved eqns of the current user from firebase
+   * 
+   * @returns void if not auth'ed in settings
+   */
   loadSaved = () => {
     if (!SettingsScreen.auth) {
       return;
@@ -72,7 +99,7 @@ export default class FirebaseScreen extends Component {
                 var eqnKey = ref.toJSON();
                 if (eqnKey != null) {
                   var eqnStr: string = eqnKey.toString();
-                  if (eqnStr != null) saved.push(<LoadEqnButton eqnKey={eqnKey} eqnStr={eqnStr} />);
+                  if (eqnStr != null) saved.push(<LoadEqnButton eqnStr={eqnStr} />);
                 }
               }
             });
@@ -83,6 +110,10 @@ export default class FirebaseScreen extends Component {
     }
   };
 
+  /**
+   * Presenter rendering function
+   * @returns rendered page to the View layer
+   */
   render() {
     this.checkReset();
     return (

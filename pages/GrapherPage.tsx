@@ -14,6 +14,10 @@ export default class GrapherScreen extends Component {
   keyboard = false;
   selected = 0;
 
+  /**
+   * set the selected cell on this page
+   * @param num cell to select
+   */
   setSelected = (num: any) => {
     if (this.selected == num) {
       this.keyboard = !this.keyboard;
@@ -24,13 +28,21 @@ export default class GrapherScreen extends Component {
     this.forceUpdate();
   };
 
+  /**
+   * push a new cell to the screen
+   */
   addNewCell = () => {
     GrapherScreen.cells.push("");
     this.selected = GrapherScreen.cells.length - 1;
   };
 
+  /**
+   * perform a function from the keyboard
+   * @param func function to do, (number, character, clear, delete)
+   */
   doFunc = (func: any) => {
     var sel = GrapherScreen.cells[this.selected];
+    //update the cell depending on the button pressed
     switch (func) {
       case "del":
         if (sel.substring(sel.length - 5) == "(ANS)") {
@@ -55,11 +67,18 @@ export default class GrapherScreen extends Component {
   
   // Presenter functions
 
+  /**
+   * function called by the View to add a cell
+   */
   addCell = () => {
     this.addNewCell();
     this.forceUpdate();
   };
 
+  /**
+   * Presenter rendering function
+   * @returns rendered page to the View layer
+   */
   render() {
     var store: any[] = [];
     for (var i = 0; i < GrapherScreen.cells.length; i++) {

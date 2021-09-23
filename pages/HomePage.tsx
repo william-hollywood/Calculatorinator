@@ -6,7 +6,10 @@ import { styles } from "../assets/Styles";
 
 export default class HomeScreen extends Component {
   // Presenter functions
-  
+  /**
+   * Presenter rendering function
+   * @returns rendered page to the View layer
+   */
   render() {
     return (
       <View>

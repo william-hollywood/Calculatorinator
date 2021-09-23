@@ -1,4 +1,4 @@
-6 pages
+7 pages
 
 View
 TouchableOpacity
@@ -8,12 +8,12 @@ SafeAreaProvider
 
 createNativeStackNavigator
 NavigationContainer
-useNavigation
 Component
 ReactP5Wrapper
-
 Button
+
 TextInput
 RNPickerSelect
 mathjs
 KeyboardAvoidingView
+react-native-hash

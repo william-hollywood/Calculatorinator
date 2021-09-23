@@ -3,7 +3,16 @@ import React from "react";
 import { KeyboardButton } from "./KeyboardButton";
 import { styles } from "../assets/Styles";
 
+// Presenter functions
+/**
+ * return a keyboard with specific buttons depending on the page
+ * 
+ * @param page page to do functions on
+ * @param state which state is this in c(continuous) or g(grapher)
+ * @returns a keyboard with 20 buttons
+ */
 export function Keyboard(page: any, state: string) {
+  //push all keyboard to and array of JSX elements
   var buttons: any[] = [];
   buttons.push(KeyboardButton("(", page));
   buttons.push(KeyboardButton(")", page));

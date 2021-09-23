@@ -3,7 +3,13 @@ import React from "react";
 import { TouchableOpacity, Text, View, StyleSheet, ImageBackground } from "react-native";
 import { styles } from "../assets/Styles";
 
-function backButton() {
+// Presenter functions
+/**
+ * construct a back button component (if possible)
+ * 
+ * @returns back button component
+ */
+function BackButton() {
   const navigation = useNavigation();
   if (navigation.canGoBack())
     return (
@@ -11,10 +17,16 @@ function backButton() {
         <TouchableOpacity style={styles.backButt} onPress={navigation.goBack}></TouchableOpacity>
       </ImageBackground>
     );
-  return;
+  return (<View></View>);
 }
 
-function shareButton(name: any) {
+/**
+ * construct a share button component (if on cts page)
+ * 
+ * @param name name of the current page
+ * @returns share button component
+ */
+function ShareButton({ name }: { name: string }) {
   const navigation = useNavigation();
   const firepage: any = "Firebase";
   if (name == "Continuous Screen")
@@ -28,7 +40,7 @@ function shareButton(name: any) {
         ></TouchableOpacity>
       </ImageBackground>
     );
-  return;
+    return (<View></View>);
 }
 
 export function Header({ name }: { name: string }) {
@@ -38,7 +50,8 @@ export function Header({ name }: { name: string }) {
         <Text style={styles.pageTitle}> {name} </Text>
       </View>
       <View style={styles.buttonWrapper}>
-        {backButton()} {shareButton(name)}
+        <BackButton/>
+        <ShareButton name={name}/>
       </View>
     </View>
   );

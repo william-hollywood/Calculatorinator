@@ -1,30 +1,34 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, KeyboardAvoidingView, Button } from "react-native";
+import { View, Text, TextInput, Button, KeyboardAvoidingView } from "react-native";
 import { Header } from "../components/Header";
 import { styles } from "../assets/Styles";
 import { JSHash, CONSTANTS } from "react-native-hash";
-import { fbaseGet, fbaseSet } from "../components/Firebase";
+import { fbaseGet, fbaseSet } from "../firebase/Firebase";
 
 
 
 export default class SettingsScreen extends Component {
-  // static username = "test"; //"";
-  // static hash = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"; //"";
-  // static auth = true; //false;
+  // model functions and variables
+
   static username = "";
   static hash = "";
   static auth = false;
   status = "Enter Password";
   col = "#FFA500";
 
+  /**
+   * register new login using entered username and hash
+   * @param page page to update results on
+   */
   registerLogin = (page: any) => {
     fbaseGet("Logins/" + SettingsScreen.username).then((val) => {
+        //ensure the login doesnt exist already
         if (val.toJSON() == null) {
           SettingsScreen.auth = true;
           page.status = "User Registered";
           page.col = "#00FF00";
           fbaseSet("Logins/" + SettingsScreen.username,SettingsScreen.hash);
-        } else {
+        } else { //otherwise its invalid
           page.status = "Invalid Registration";
           page.col = "#FF0000";
           SettingsScreen.auth = false;
@@ -33,12 +37,21 @@ export default class SettingsScreen extends Component {
       });
   }
   
+  /**
+   * test the login matches what is on firebase
+   * @param pass password to hash
+   * @param page page to update results on
+   */
   testLogin = (pass: any, page: any) => {
+    //hash the password
     JSHash(pass, CONSTANTS.HashAlgorithms.sha256)
       .then((hash) => {
+        // save it
         SettingsScreen.hash = hash;
+        // get the login from firebase
         fbaseGet("Logins/" + SettingsScreen.username).then(function (val) {
             if (val.toJSON() != null) {
+              //does it match or not
               if (val.toJSON() == hash) {
                 SettingsScreen.auth = true;
                 page.status = "Valid Login";
@@ -55,22 +68,31 @@ export default class SettingsScreen extends Component {
       .catch((e) => {});
   }
 
+  /**
+   * method called by presenter whenever the password changes
+   * @param str updated password
+   */
   updateOnPassEntry(str: any) {
+    // set the colour to orange as "pending submit"
     this.col = "#FFA500";
     this.status = "Enter Password";
     this.forceUpdate();
+    // update the model's hash (async)
     JSHash(str, CONSTANTS.HashAlgorithms.sha256).then((hash) => {
       SettingsScreen.hash = hash;
     });
   }
 
   // Presenter functions
-
+  /**
+   * Presenter rendering function
+   * @returns rendered page to the View layer
+   */
   render() {
     return (
       <View>
         <Header name="Settings Screen" />
-        <View style={styles.content}>
+        <KeyboardAvoidingView style={styles.content}>
           <Text> Username: </Text>
           <TextInput
             defaultValue={SettingsScreen.username}
@@ -93,7 +115,7 @@ export default class SettingsScreen extends Component {
           ></TextInput>
           <Text style={{ color: this.col }}>{this.status}</Text>
           <Button title="Register New User" onPress={() => this.registerLogin(this)}></Button>
-        </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
