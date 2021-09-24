@@ -11,7 +11,9 @@ This project uses yarn as its package manager. Before progressing further ensure
 You can download this project using:
 
 ```bash
-git clone https://gitlab.ecs.vuw.ac.nz/hollywwill/swen325-app.git
+git clone https://gitlab.ecs.vuw.ac.nz/course-work/swen325/2021/assignment2/hollywwill/swen325-app.git
+
+
 ```
 
 You would normally need to manually create the `.env` file containing all environment variables. But for the sake of ease of assignment marking, this has been included in the project repo. (**But should not normally be included**)
