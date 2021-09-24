@@ -1,19 +1,26 @@
-7 pages
+Screens:
+1.	Menu Screen
+2.	Continuous Screen
+3.	Firebase Screen
+4.	Grapher Screen
+5.	Graph Screen
+6.	Unit Conversion screen
+7.	Settings Screen
 
-View
-TouchableOpacity
-Text
-StyleSheet
-SafeAreaProvider
-
-createNativeStackNavigator
-NavigationContainer
-Component
-ReactP5Wrapper
-Button
-
-TextInput
-RNPickerSelect
-mathjs
-KeyboardAvoidingView
-react-native-hash
+Unique Components/APIs/Libraries (Screens used on {by above number} or file):
+1.	Button (3,6,7)
+2.	Component (1,2,3,4,5,6,7)
+3.	createNativeStackNavigator (App.tsx)
+4.	firebase (3,7)
+5.	KeyboardAvoidingView(6,7)
+6.	Mathjs (2,5,6)
+7.	NavigationContainer (App.tsx)
+8.	react-native-hash (7)
+9.	ReactP5Wrapper (5)
+10.	RNPickerSelect (6)
+11.	SafeAreaProvider (App.tsx)
+12.	StyleSheet (Styles.tsx)
+13.	Text (1,2,3,4,5,6,7)
+14.	TextInput (6,7)
+15.	TouchableOpacity(1,2,3,4,5,6,7)
+16.	View(1,2,3,4,5,6,7)

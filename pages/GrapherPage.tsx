@@ -5,7 +5,6 @@ import { HomePageButton } from "../components/HomePageButton";
 import { styles } from "../assets/Styles";
 import { Keyboard } from "../components/Keyboard";
 import { GrapherCell } from "../components/GrapherCell";
-import GraphScreen from "./GraphPage";
 
 export default class GrapherScreen extends Component {
   // Model functions and variables
@@ -88,7 +87,6 @@ export default class GrapherScreen extends Component {
     }
     var board: any[] = [];
     if (this.keyboard) {
-      board.push(<View style={styles.keyboardPadding}></View>);
       board.push(Keyboard(this, "g"));
     }
     return (

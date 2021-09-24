@@ -32,6 +32,8 @@ The `--web` **is required** as some dependancies do not work with expo unless ru
 
 Once started you can then use the app by navigating to `http://localhost:19006/` in your web browser on the same device. (or `http://{your internal ip}:19006/` on LAN).
 
+The app can be put into mobile mode by pressing `Ctrl + Shift + m` (in firefox at least).
+
 ### Development environment
 I used Visual Studio Code to develop this application using the `React Native Tools` extension.
 
