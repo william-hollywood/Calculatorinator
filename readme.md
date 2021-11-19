@@ -8,13 +8,7 @@ There are the following steps before further development on this app can be cont
 This project uses yarn as its package manager. Before progressing further ensure you have `nodejs` and `yarn` installed on your device.
 
 ### Setting up the project
-You can download this project using:
-
-```bash
-git clone https://gitlab.ecs.vuw.ac.nz/course-work/swen325/2021/assignment2/hollywwill/swen325-app.git
-
-
-```
+You can download this project by cloning this repo
 
 You would normally need to manually create the `.env` file containing all environment variables. But for the sake of ease of assignment marking, this has been included in the project repo. (**But should not normally be included**)
 
@@ -40,6 +34,8 @@ The app can be put into mobile mode by pressing `Ctrl + Shift + m` (in firefox a
 I used Visual Studio Code to develop this application using the `React Native Tools` extension.
 
 ## What to know about the code and firebase
+This app used firebase, but it has been turned off as it is no longer needed
+
 There is one default user set up in firebase The login is as follows:
 ```
 username: test
